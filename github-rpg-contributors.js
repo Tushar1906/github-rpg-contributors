@@ -72,6 +72,26 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
     `];
   }
 
+  updated(changedProperties) {
+    super.updated(changedProperties);
+    if (changedProperties.has("organization") || changedProperties.has("repo")) {
+      this.fetchContributors();
+    }
+  }
+
+  fetchContributors() {
+    const url = `https://api.github.com/repos/${this.organization}/${this.repo}/contributors`;
+  try {
+    fetch(url).then(d => d.ok ? d.json(): {}).then(data => {
+      if (data) {
+        this.contributors = [];
+        this.contributors = data;
+      }});
+  } catch (error) {
+    console.error("error", error);
+  }
+  }   
+
   // Lit render the HTML
   render() {
     return html`
