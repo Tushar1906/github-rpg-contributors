@@ -69,6 +69,10 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
       h3 span {
         font-size: var(--github-rpg-contributors-label-font-size, var(--ddd-font-size-s));
       }
+      .rpg-wrapper  {
+        display: inline-flex;
+      
+      }
     `];
   }
 
@@ -97,12 +101,17 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
     return html`
 <div class="wrapper">
 <h3>GitHub Repo: <a href="https://github.com/${this.organization}/${this.repo}">${this.organization}/${this.repo}</a></h3>
-${this.contributors.filter((c, i) => i < this.limit).map((c) => html`
+</div>
+<div class="rpg-wrapper">
+${this.contributors.filter((item, index) => index < this.limit).map(item => html`
 <div class="contributor">
   <rpg-character seed="${item.login}"></rpg-character>
   <div class="content">
+    <a href=https://github.com/${item.login}>${item.login}</a>
     Contributor: ${item.contributions}
   
+    </div>
+</div>
   `)}
   
 </div>`;
