@@ -71,7 +71,30 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
       }
       .rpg-wrapper  {
         display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
       
+      }
+      .contributor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: var(--ddd-spacing-2);
+        padding: var(--ddd-spacing-4);
+        border: 1px solid var(--ddd-theme-primary);
+        border-radius: var(--ddd-border-radius);
+        background-color: var(--ddd-theme-accent);
+        color: var(--ddd-theme-primary);
+      }
+      .content {
+        margin-top: var(--ddd-spacing-2);
+      }
+      a {
+        color: var(--ddd-theme-primary);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
       }
     `];
   }
@@ -106,8 +129,10 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
 ${this.contributors.filter((item, index) => index < this.limit).map(item => html`
 <div class="contributor">
   <rpg-character seed="${item.login}"></rpg-character>
+
   <div class="content">
     <a href=https://github.com/${item.login}>${item.login}</a>
+    <br>
     Contributor: ${item.contributions}
   
     </div>
